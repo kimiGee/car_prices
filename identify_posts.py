@@ -17,7 +17,7 @@ for city in cities:
     # this while loop cycles through all 1800 pages
     while(page_number <= 1800):
         # city_link variable takes a a different city name from the cities every time through the loop
-        city_link = str(city) +"/search/cta?s=" + str(page_number)                  
+        city_link = str(city) +"/search/cta?s=" + str(page_number) + "&purveyor=owner"                  
         list_of_cities.append(city_link)
         page_number +=120
         
@@ -45,6 +45,12 @@ for each_city_page in list_of_cities:
         except:
             pass                            
         
-print(len(city_links))
+
 df = pd.DataFrame(city_links)
-df.to_csv("./links.csv", sep=',',index=False)
+df.to_csv("./owner_links.csv", sep=',',index=False)
+
+# read links from csv
+links = pd.read_csv('./owner_links.csv', names=['https'])
+links = links['https'][1:]
+print("links returned --> " , len(links))
+links
